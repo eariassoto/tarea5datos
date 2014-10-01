@@ -1,0 +1,67 @@
+<!doctype html>
+<html class="no-js" lang="es">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Validacion de hileras</title>
+      <link rel="stylesheet" href="css/foundation.css" />
+      <script type="text/javascript" src="js/vendor/modernizr.js"></script>
+      <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+   </head>
+   <body>
+      <div class="row">
+         <div id="main" class="large-12 columns">
+            <h1>Conectando PHP con C++</h1>
+            <h2>Validación de hileras mediante un autómata</h2>
+         </div>
+      </div>
+      <div class="row">
+         <div class="large-12 columns panel">
+            Ingrese los datos y presione Ejecutar
+            <input type="text" id="txtInput">
+            <button onclick="validate()">Ejecutar</button>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="large-12 columns panel" id="results">
+			<h4>Resultado del servidor:</h4>
+         </div>
+      </div>
+	  
+      <footer class="row">
+         <hr/>
+         <div class="large-8 columns">
+            <p>Tarea Estructuras Datos y Análisis de Algoritmos. <a href="http://ecci.ucr.ac.cr/">CI 1221 ECCI UCR</a></p>
+         </div>
+         <div class="large-4 columns">
+            <p style="text-align: right"><a href="https://github.com/eariassoto/tarea5datos">View project on Github</a></p>
+         </div>
+      </footer>
+      
+	  <!--Foundation Framework, créditos a http://foundation.zurb.com/-->
+	  <script src="js/foundation.min.js"></script>
+      <script>
+         $(document).foundation();
+      </script>
+     
+	 <script type="text/javascript">
+         function validate(){
+         	input = $("#txtInput").val();
+			if(input != ""){
+				//funcion AJAX es.wikipedia.org/wiki/AJAX que interactua con el php 
+				$.ajax({
+					type: "POST",
+					url: "/intermediario.php",
+					data: {action: input},
+					dataType:'JSON', 
+					success: function(response){
+						console.log();
+						$( "#results" ).append( "<p>"+response.resp+"</p>" );
+						}
+				});
+			}
+         }
+      </script>
+   </body>
+</html>
