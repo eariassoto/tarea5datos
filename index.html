@@ -49,6 +49,7 @@
          function validate(){
          	input = $("#txtInput").val();
 			if(input != ""){
+			
 				//funcion AJAX es.wikipedia.org/wiki/AJAX que interactua con el php 
 				$.ajax({
 					type: "POST",
@@ -56,9 +57,9 @@
 					data: {action: input},
 					dataType:'JSON', 
 					success: function(response){
-						console.log();
+						//usa jquery para agregar al final de una etiqueta la respuesta.
 						$( "#results" ).append( "<p>"+response.resp+"</p>" );
-						}
+					}
 				});
 			}
          }
