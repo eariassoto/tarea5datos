@@ -1,40 +1,16 @@
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include <sstream>
+#include <algorithm>
 #include "Automata.h"
 
 Automata::Automata(int n): Grafo(n)
 {
 }
 
-Automata::Automata(int n, char* c, string nR): Grafo(n, c), nodosFinales()
+Automata::Automata(int n, char* c): Grafo(n, c), nodosFinales()
 {
     cargarNodosIniciales(c);
-    nombreRegistro = nR;
-
-}
-
-void Automata::escribirRegistro(string mensaje)
-{
-    ofstream registro;
-    registro.open (nombreRegistro);
-    registro << mensaje;
-    registro << "\n";
-    registro.close();
-}
-
-string Automata::obtenerRegistro()
-{
-    ifstream registro(nombreRegistro);
-    string t = "";
-    string reg = "";
-    if (registro.is_open())
-    {
-        while(getline (registro, t))
-            reg += t + "\n";
-    }
-    registro.close();
-    return reg;
 }
 
 void Automata::cargarNodosIniciales(char* configSrc){
@@ -48,10 +24,31 @@ void Automata::cargarNodosIniciales(char* configSrc){
 		stringstream ss(t);
         int nF;
         ss >> nF;
-		if(t != "-1")
+		if(t != "-1"){
             nodosFinales.push_back(nF);
+		}
 	};
 
     automataConfig.close();
 }
 
+bool Automata::validarHilera(string hilera){
+	return validarHilera(0, 0, hilera);
+}
+
+bool Automata::validarHilera(int nodo, int indice, string hilera){
+	if(indice == (int)hilera.size()){
+		if(find(nodosFinales.begin(), nodosFinales.end(), nodo) != nodosFinales.end()){
+			return true;
+		}else{
+			return false;
+		}
+	}else{
+		for(int j = 0; j < cantidadNodos; j++){
+			if(existeArista(nodo, j, hilera[indice])){
+				return false || validarHilera(j, indice+1, hilera);
+			}
+		}
+	}
+	return false;
+}

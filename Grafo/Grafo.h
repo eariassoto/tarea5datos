@@ -25,7 +25,7 @@ public:
 	void modificarArista(int nodo1, int nodo2, char c1, char c2);
 	string consultarAristas(int, int);
 
-private:
+protected:
 
     void inicializarMatriz();
 	void inicializarFila(vector<string>);

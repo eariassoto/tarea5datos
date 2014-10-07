@@ -9,19 +9,17 @@ class Automata : public Grafo
 public:
 
     Automata(int);
-    Automata(int, char*, string);
+    Automata(int, char*);
 
     string obtenerRegistro();
-
-    bool comprobarHilera(string);
+	bool validarHilera(string);
+	bool validarHilera(int, int, string);
 
 private:
 
     vector<int> nodosFinales;
-    string      nombreRegistro;
-
-    void escribirRegistro(string);
-    void cargarNodosIniciales(char* configSrc);
+	
+    void cargarNodosIniciales(char*);
 
 };
 #endif /* AUTOMATA_H_ */
